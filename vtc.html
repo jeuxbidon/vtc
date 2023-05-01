@@ -1,0 +1,493 @@
+<head>
+    <meta charset="UTF-8">
+    <script src="vtc.js"></script> <!-- Lien vers votre fichier JS -->
+    <!-- Inclusion de la bibliothèque jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDri-GHR_s02IDFhkGI2kqqzH44EzfAYw&libraries=places"></script>
+</head>
+
+<link rel="stylesheet" href="vtc.css">
+<!-- Inclusion de la bibliothèque jQuery UI -->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css" />
+
+<body style="background-color: #212529;">
+    <div class="col-xl-4 col-lg-5 offset-xl-2 offset-lg-1" style="display: block;">
+        <div class="booking-form">
+            <h3>Estimez votre Trajet</h3>
+            <form id="form1" class="form-horizontal" data-toggle="validator">
+                <div class="check-date">
+                    <label class="text-left">
+                        Adresse de départ :
+                        <input type="text" id="autocomplete1" name="adresse1"
+                            placeholder="Ex : N° Rue, Code postal/Ville" value="" class="form-control pac-target-input"
+                            required="">
+                        <i class="icon_calendar"></i>
+                    </label>
+                </div>
+                <div class="check-date">
+                    <label class="text-left">Adresse d'arrivée :
+                        <input type="text" id="autocomplete2" name="adresse2"
+                            class="form-control form-effect pac-target-input"
+                            placeholder="Ex : N° Rue, Code postal/Ville" name="end" value="" vk_1e362="subscribed"
+                            required="">
+                        <i class="icon_calendar"></i>
+                    </label>
+                </div>
+                <script>
+                    var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById('autocomplete1'));
+                    var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'));
+                </script>
+                <select id="typeVehicule" name="typeVehicule" required="" style="margin-bottom: 15px;">
+                    <option value="">Type du Véhicule</option>
+                    <option value="1">BERLINE</option>
+                    <option value="2">VAN</option>
+                </select>
+                <div>
+                    <select id="nbPersonnes" name="pers" required="">
+                        <option value="">Nbr de personnes</option>
+                        <option id="pers1" value="1" style="display: none;">1 personne</option>
+                        <option id="pers2" value="2" style="display: none;">2 personnes</option>
+                        <option id="pers3" value="3" style="display: none;">3 personnes</option>
+                        <option id="pers4" value="4" style="display: none;">4 personnes</option>
+                        <option id="pers5" value="5" style="display: none;">5 personnes</option>
+                        <option id="pers6" value="6" style="display: none;">6 personnes</option>
+                        <option id="pers7" value="7" style="display: none;">7 personnes</option>
+                    </select>
+                </div>
+
+                <button name="calculer" id="calculer" onclick="afficherTarif()">Estimez</button>
+            </form>
+        </div>
+        <div class="reservation" style="display: none;" id="reservation">
+            <div id="form2" name="form2">
+                <p class="cout" id="cout"><strong> Coût du Trajet : 935 Euro </strong></p>
+                <p class="resultat" id="resultat">Estimation: 4 heures 36 minutes<br>Distance: 466 Km</p>
+                <button name="reserver" id="reserver">Réservez</button>
+            </div>
+        </div>
+    </div>
+    <div class="container" style="display: none;">
+        <div class="row">
+            <div class="col-md-12 "><!--md-12-->
+                <form class="form-inline contact-form" method="post" action="confirmation.php" role="form"
+                    id="ResrvForm">
+                    <!--client-->
+                    <div class="blur-wrapper col-md-7 mb-2"><!--blur-wrapper col-md-7-->
+                        <fieldset class="trajet-field col-md-12 col-md-offset-3 blur-content blur-plus">
+                            <!--trajet aller et retour-->
+                            <h5 class="mb-3 ml-4">Détails Client</h5>
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <input type="text" placeholder="Email " name="email" id="email" value=""
+                                        required="">
+                                    <div id="status_seek"></div>
+                                </div> <!--col-sm-6-->
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <span class="error"></span>
+                                    <input type="text" placeholder="Téléphone " name="tel" id="tel" value=""
+                                        autocomplete="off"
+                                        pattern="^((\+\d{1,3}(-| )?\(?\d\)?(-| )?\d{1,5})|(\(?\d{2,6}\)?))(-| )?(\d{2,6})(-| )?(\d{4})(( x| ext)\d{1,5}){0,1}$"
+                                        data-fv-phone-message="Téléphone non valide." required="">
+                                </div> <!--col-sm-6-->
+                            </div><!--form-group lg-12-->
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <input type="text" placeholder="Nom " name="nom" id="nom" value=""
+                                        autocomplete="off" required="">
+
+                                </div> <!--col-sm-6-->
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <span class="error"></span>
+                                    <input type="text" placeholder="Prénom " name="prenom" id="prenom" value=""
+                                        autocomplete="off" required="">
+                                </div> <!--col-sm-6-->
+                            </div><!--form-group lg-12-->
+                        </fieldset>
+                    </div><!--blur-wrapper col-md-7-->
+                    <!--trajet-->
+                    <div class="blur-wrapper col-md-7"><!--blur-wrapper col-md-8-->
+                        <fieldset class="trajet-field col-md-12 col-md-offset-3 blur-content blur-plus" style="margin-bottom: 8px;">
+                            <!--trajet aller et retour-->
+
+                            <h5 class="mb-3 ml-4">Trajet Aller</h5>
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <input type="text" placeholder="Adresse de départ " name="start" id="start" data-toggle="tooltip" data-placement="top"
+                                        title="" value="" autocomplete="off" required=""
+                                        data-original-title="Sélectionner l'adresse parmis celles proposées pour lancer la simulation"
+                                        class="pac-target-input" data-gtm-form-interact-field-id="4">
+
+
+                                </div> <!--col-sm-6-->
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <span class="error"></span>
+                                    <input type="text" placeholder="Adresse d'arrivée" name="end" id="end"
+                                        data-toggle="tooltip" title="" data-placement="top" value=""
+                                        autocomplete="off" required=""
+                                        data-original-title="Vous devez faire une sélection dans la liste pour lancer la simulation"
+                                        class="pac-target-input">
+                                </div> <!--col-sm-6-->
+                            </div><!--form-group lg-12-->
+
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+                                        <input type="text" placeholder="Date et heure de départ" id="datetimepicker">
+                                        <p id="error-msg" style="display:none;">Veuillez choisir une date valide</p>
+                                        <script>
+                                          $(document).ready(function() {
+                                            // Définir la date minimum à j+2
+                                            var dateMin = new Date();
+                                            dateMin.setDate(dateMin.getDate() + 2);
+                                            dateMin.setHours(0, 0, 0, 0);
+                                            // Configuration du datetimepicker
+                                            $.datetimepicker.setLocale('fr');
+                                            $("#datetimepicker").datetimepicker({
+                                              format: 'd/m/Y H:i',  // Format de l'heure
+                                              showMinute: true,  // Afficher les minutes
+                                              step: 15,  // Pas de 15 minutes
+                                              showSecond: false,  // Ne pas afficher les secondes
+                                              minDate: dateMin,  // Date minimale
+                                              timepicker: false,
+                                              dayOfWeekStart: 1,
+                                              onShow: function(currentDateTime, $input) {
+                                                if (document.getElementById("datetimepicker").value == "") {
+                                                    this.setOptions({
+                                                        timepicker: false
+                                                    });
+                                                }
+                                              },
+                                              onSelectDate: function(currentDateTime, $input) {
+                                                if (currentDateTime < dateMin) {
+                                                    this.setOptions({
+                                                        timepicker: false
+                                                    });
+                                                } else {
+                                                    this.setOptions({
+                                                        timepicker: true
+                                                    });
+                                                }
+                                                document.getElementById("datetimepicker").value = "";
+                                              },
+                                              onClose: function(currentDateTime, $input) {
+                                                if (currentDateTime < dateMin) {
+                                                    document.getElementById("datetimepicker").value = ""; // efface le champ
+                                                }
+                                              }
+                                            });
+                                          });
+                                        </script>
+                                </div> <!--col-sm-6-->
+                                <div class="form-group col-md-6 col-sm-6">
+                                    <span class="error"></span>
+                                    <input id="numv" type="text" placeholder="N° vol/train-provenance" name="numv"
+                                        value="" autocomplete="off">
+                                </div> <!--col-sm-6-->
+                            </div><!--form-group-->
+                            <!--hidden-->
+                            <input type="hidden" id="code_postal_end" name="code_postal_end" value="">
+                            <input id="distance" type="hidden" name="distance" value="466">
+                            <input id="dure" type="hidden" name="dure" value="276">
+                            <input id="estim" type="hidden" name="estim">
+                            <input id="totalttc" type="hidden" name="totalttc">
+                            <input id="heure" type="hidden" name="heure">
+                            <!--hidden-->
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <span class="error"></span>
+                                    <select id="voiture" name="voiture" required="">
+                                        <option value="" selected="">Type du Véhicule</option>
+
+                                        <option value="1">BERLINE</option>
+                                        <option value="2">VAN</option>
+
+                                    </select>
+
+                                </div><!--col-sm-6-->
+                                <div class="form-group col-md-6 col-sm-6 ">
+
+                                    <span class="error"></span>
+                                    <select id="pers" name="pers" required="">
+                                        <option value="">Nbr de personnes</option>
+                                        <option id="pers11" value="1" style="display: none;">1 personne</option>
+                                        <option id="pers12" value="2" style="display: none;">2 personnes</option>
+                                        <option id="pers13" value="3" style="display: none;">3 personnes</option>
+                                        <option id="pers14" value="4" style="display: none;">4 personnes</option>
+                                        <option id="pers15" value="5" style="display: none;">5 personnes</option>
+                                        <option id="pers16" value="6" style="display: none;">6 personnes</option>
+                                        <option id="pers17" value="7" style="display: none;">7 personnes</option>
+                                    </select>
+
+
+                                </div><!--col-sm-6-->
+                            </div><!--form-group-->
+                            <div class="form-group col-lg-12 mb-2">
+
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <select id="bb" name="bb">
+                                        <option value="">siège bébé</option>
+                                        <option value="1">
+                                            1 siège bébé (+5 €)</option>
+                                        <option value="2">
+                                            2 sièges bébé (+5 €)</option>
+                                    </select>
+
+
+                                </div><!--col-sm-6-->
+
+                                <div class="form-group col-md-6 col-sm-6">
+
+                                    <select id="rehau" name="rehau">
+                                        <option value="">réhausseurs</option>
+                                        <option value="1">
+                                            1 réhausseurs (+5 €)</option>
+                                        <option value="2">
+                                            2 réhausseurs (+5 €)</option>
+
+                                    </select>
+
+                                </div><!--col-sm-6-->
+
+                            </div><!--form-group-->
+                            <div class="form-group col-lg-12 mb-2">
+                                <div class="form-group col-md-6 col-sm-6">
+                                    <label class="check-lab">
+                                        <span class="check-label">Pancarte à votre Nom </span> <span
+                                            class="text-danger check-label ml-1"> (+5 €)</span>
+                                        <span class="ml-1">
+                                            <input id="vip" class="check-click" type="checkbox" name="vip">
+                                        </span>
+                                    </label>
+                                    <!---->
+                                    <label class="check-lab">
+                                        <span class="check-label text-success"> Aller / Retour </span>
+                                        <span class="">
+                                            <input id="retour" class="check-click ml-1" type="checkbox"
+                                                name="retour">
+                                        </span>
+                                    </label>
+                                    <!---->
+                                </div><!--col-sm-6-->
+                            </div><!--form-group-->
+
+                            <!--voyage retour-->
+                            <div class="estimation-AR check-open" style="display: none;">
+                                <h4 class="mb-3 ml-4 mt-2">Trajet Retour</h4>
+                                <div class="form-group col-lg-12 mb-2 ">
+                                    <div class="form-group col-md-6 col-sm-6">
+
+                                        <input type="text" placeholder="Adresse de départ " name="start2"
+                                            id="start2" data-toggle="tooltip" title="" data-placement="top" value=""
+                                            autocomplete="off"
+                                            data-original-title="Sélectionner l'adresse parmis celles proposées pour lancer la simulation"
+                                            class="pac-target-input">
+
+                                    </div><!--col-sm-6-->
+                                    <div class="form-group col-md-6 col-sm-6">
+
+                                        <input type="text" placeholder="Adresse d'arrivée" name="end2" id="end2"
+                                            data-toggle="tooltip" title="" data-placement="top" value=""
+                                            autocomplete="off"
+                                            data-original-title="Vous devez faire une sélection dans la liste pour lancer la simulation"
+                                            class="pac-target-input">
+                                    </div><!--col-sm-6-->
+                                </div><!--form-group-->
+                                <div class="form-group col-lg-12 mb-2 ">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <input type="text" placeholder="Date et heure départ*" name="dp2" id="dp2"
+                                            data-toggle="tooltip" title="" data-placement="bottom"
+                                            class="input-append datetime form_datetime" onkeydown="return false;"
+                                            value="" autocomplete="off"
+                                            data-original-title="vérifier bien votre date">
+
+                                    </div><!--col-sm-6-->
+                                    <div class="form-group col-md-6 col-sm-6">
+
+                                        <input id="numv2" type="text" placeholder="N° vol/train-provenance"
+                                            name="numv2" value="" autocomplete="off">
+                                    </div><!--col-sm-6-->
+                                </div><!--form-group-->
+
+                                <div class="form-group col-lg-12 mb-2 ">
+                                    <div class="form-group col-md-6 col-sm-6">
+
+                                        <select id="voiture2" name="voiture2">
+                                            <option value="">Type du Véhicule</option>
+                                            <option value="1">BERLINE</option>
+                                            <option value="2">VAN</option>
+
+
+                                        </select>
+
+                                    </div><!--col-sm-6-->
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <select id="pers2" name="pers2">
+                                            <option value="">Nbr de personnes</option>
+                                        </select>
+                                    </div><!--col-sm-6-->
+                                </div><!--form-group-->
+                                <!--hidden-->
+                                <input id="code_postal_end2" type="hidden" name="code_postal_end2" value="0">
+                                <input id="distance2" type="hidden" name="distance2">
+                                <input id="dure2" type="hidden" name="dure2">
+                                <input id="estim2" type="hidden" name="estim2">
+                                <input id="heure2" type="hidden" name="heure2">
+                                <!--hidden-->
+                                <div class="form-group col-lg-12 mb-2 ">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <select id="bb2" name="bb2">
+                                            <option value="">siège bébé</option>
+                                            <option value="1">1 siège bébé (+5 €))</option>
+                                            <option value="2">2 siège bébé (+5 €)</option>
+                                        </select>
+                                    </div><!--col-sm-6-->
+                                    <div class="col-sm-6">
+                                        <select id="rehau2" name="rehau2">
+                                            <option value="">réhausseurs</option>
+                                            <option value="1">1 réhausseurs (+5 €)</option>
+                                            <option value="2">2 réhausseurs (+5 €)</option>
+
+                                        </select>
+                                    </div><!--col-sm-6-->
+                                </div><!--form-group-->
+
+                                <div class="form-group col-lg-12 mb-2 ">
+                                    <div class="form-group col-md-6 col-sm-6">
+                                        <label class="check-lab">
+                                            <span class="check-label">Pancarte à votre Nom </span> <span
+                                                class="text-danger check-label ml-1"> (+5 €)</span>
+                                            <span class="ml-1">
+                                                <input id="vip2" class="check-click" type="checkbox" name="vip2">
+                                            </span>
+                                        </label>
+                                    </div><!--col-sm-6-->
+                                    <div class="col-sm-6">
+                                    </div><!--col-sm-6-->
+                                </div><!--form-group-->
+
+
+                            </div><!--estimation-AR-->
+                            <!--voyage retour-->
+
+                        </fieldset><!--trajet aller et retour-->
+                        <!--message-->
+                        <fieldset class="col-md-12 col-md-offset-3 blur-content blur-plus mt-2" id="complement">
+                            <!--compléments-->
+                            <div class="col-lg-12 form-group "><!--0-->
+                                <div class="col-sm-5 align-self-start check-label text-left">
+                                    <h5 class="mb-3 ml-4">Paiement</h5>
+                                    <!---->
+                                    <label class="check-lab">
+                                        <span class="mr-1">
+                                            <input type="radio" name="optradio" value="Paiement Chauffeur"
+                                                required="">
+                                        </span>
+                                        <span class="check-label"> Paiement Auprés du chauffeur </span>
+                                    </label>
+
+                                    <label class="check-lab mt-2">
+                                        <span class="mr-1">
+                                            <input type="radio" name="optradio" value="Paiement Total">
+                                        </span>
+                                        <span class="check-label"> Paiement en ligne via Stripe </span>
+
+                                    </label>
+
+                                </div>
+                                <div
+                                    class="form-group col-md-7 col-sm-7 align-self-start check-label text-danger text-left">
+                                    <!--2-->
+                                    <h5 class="mb-3 ml-4">Message</h5>
+                                    <small id="bag_alert">
+                                        * Merci de préciser le nombre de bagages<br>
+                                    </small>
+
+                                    <textarea placeholder="Commentaires" name="comment" id="comment"></textarea>
+
+
+                                </div> <!--2-->
+                            </div><!--0-->
+                        </fieldset>
+                        <!--message-->
+                    </div><!--blur-wrapper col-md-7-->
+
+                    <!--total-->
+                    <div class="blur-wrapper col-md-4 align-self-start text-center">
+                        <fieldset class="col-sm-12 col-md-offset-0 blur-content blur-plus mt-2" id="total-fact">
+
+                            <h4 class="mb-3 ml-4">Total :</h4>
+
+                            <p class="text-left">
+                                <span class="text-primary">Trajet Aller :</span><br><br>
+                                <span id="dist" class="pull-left">Distance : </span>
+                                <label id="labdist">
+                                    466 </label>
+
+                                <span class="getdist"> </span> Km<br>
+                                <span id="temp" class="pull-left">Temps : </span>
+                                <label id="labtemp">
+                                    276</label>
+                                <span class="gettime"></span>Min
+
+                            </p>
+                            <h5 class="estim">
+
+                                <span class="text-danger">
+                                    <label id="labesti">
+                                        935
+                                    </label> €</span>
+                                <br>
+                            </h5>
+
+
+                            <p></p>
+                            <!--retour-->
+                            <div id="tretour" style="display: none;">
+                                <p style="text-align:left">
+                                    <span class="text-primary">Trajet Retour :</span><br><br>
+                                    <span id="dist" class="pull-left">Distance :</span>
+                                    <label id="labdist2"></label>
+                                    <span class="getdist"></span> Km <br>
+                                    <span id="temp" class="pull-left"> Temps :</span>
+                                    <label id="labtemp2"></label> Min
+                                </p>
+                                <h5 class="estim1 text-danger"><span>
+                                        <label id="labesti2"></label> €</span></h5>
+
+                                <p></p>
+                                <p>
+                                </p>
+                                <h5 class="estim">
+                                    <label id="total" class="text-success"></label>
+                                </h5>
+                                <p></p>
+                            </div><!--retour-->
+                            <!--<div class="g-recaptcha" data-sitekey=""></div>-->
+                            <div class="clearfix" id="captch-result" style="color:#F00; font-weight:500">
+
+                            </div>
+                            <input type="hidden" name="recaptcha-response" id="recaptcha-response"
+                                value="03AKH6MRGvxlr5SxC3y6y7RFBtEtMp_g5D70BsIx2u0ta17PxO_-wNlWPEdkiQwqYxwxfYWFv7A1KNvBC7xeKqQ2GfkdDM4oFMvf2V6Cm1XQLJXIvuYEDG2KTCUnA2TM0O2cN9mzfUDXqP2BwODYSXsjqH3p4gFE_4Du9KbJ3tndeJHG2vqtO-Guv5hVNB78Xi0cbQ86dB-qAlpg-9h5hUZB4lGzeiWXS0c48B2qZX32iJP3Y6YmXZai24BLApGCEg8nJp7olLp6Ovhc4QEVWE_U2sp-JCKxBHsrVK80Kq2SWiBB6nX1r3-pb786mh7R73S2GWns7P-Yv8rQUR4k1DLP9SpErgkhulHscrLGQv-ufa9V6cbEZYQXVazer9NSiIQrxcGtGx-k3TeVc5N3rydk1erJnpGE4Mi2uxYvAJI9z27qUJLIaYSVIBsbKkhJTDfT15vomel9fVAd7b3iBXY0XDh7Co2Ojvz3jg6Eza78PPfU3AkPt5rbtJapRl2GDvFg9hOGM5hsG_aWQb0DYKtDIz_1hWP464Vg">
+                            <button class="btn btn-success btn-lg" type="submit" name="reserver"
+                                id="reserver">Confirmer</button>
+
+                            <div id="email" class="clearfix">
+
+                            </div>
+                        </fieldset>
+                    </div><!--total-->
+                </form>
+            </div> <!--md-12-->
+        </div><!--row-->
+</body>

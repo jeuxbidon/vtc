@@ -3,7 +3,7 @@ setTimeout(function() {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
   });
-}, 200);
+}, 500);
 
 async function calcDistance() {
     var adresse1 = document.getElementById('autocomplete1').value;
@@ -135,7 +135,7 @@ setTimeout(function() {
       pers7.style.display = 'none';
     }
   });
-}, 200);
+}, 500);
 
 setTimeout(function() {
   var typeVehicule2 = document.getElementById('voiture');
@@ -181,4 +181,4 @@ setTimeout(function() {
       pers17.style.display = 'none';
     }
   });
-}, 200);
+}, 500);

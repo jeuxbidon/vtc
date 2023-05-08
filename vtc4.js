@@ -10,41 +10,49 @@ setTimeout(function() {
 }, 500);
 
 async function calcDistance(option) {
-    if (option == 1){
-      var adresse1 = document.getElementById('autocomplete1').value;
-      var adresse2 = document.getElementById('autocomplete2').value;
-    } else {
-      var adresse1 = document.getElementById('autocomplete3').value;
-      var adresse2 = document.getElementById('autocomplete4').value;
-    }
-  
-    var directionsService = new google.maps.DirectionsService();
-    var directionsRenderer = new google.maps.DirectionsRenderer();
-
-    return new Promise((resolve, reject) => {
-      directionsService.route({
-        origin: adresse1,
-        destination: adresse2,
-        travelMode: 'DRIVING',
-        unitSystem: google.maps.UnitSystem.METRIC,
-        avoidHighways: false,
-        avoidTolls: false,
-        optimizeWaypoints: true,
-        provideRouteAlternatives: false,
-        avoidFerries: false,
-      }, function(response, status) {
-        if (status === 'OK') {
-          directionsRenderer.setDirections(response);
-          var distance = response.routes[0].legs[0].distance.text;
-          var distance2 = response.routes[0].legs[0].distance.value / 1000;
-          var duree = response.routes[0].legs[0].duration.text;
-          resolve([distance, duree, distance2]);
-        } else {
-          reject('Directions request failed due to ' + status);
-        }
-      });
-    });
+  if (option == 1){
+    var adresse1 = document.getElementById('autocomplete1').value;
+    var adresse2 = document.getElementById('autocomplete2').value;
+  } else {
+    var adresse1 = document.getElementById('autocomplete3').value;
+    var adresse2 = document.getElementById('autocomplete4').value;
   }
+
+  return isAddressInParis(adresse1).then((res1) => {
+    return isAddressInFrance(adresse2).then((res2) => {
+      console.log(res1, res2);
+      if (res1 && res2) {
+        var directionsService = new google.maps.DirectionsService();
+        var directionsRenderer = new google.maps.DirectionsRenderer();
+    
+        return new Promise((resolve, reject) => {
+          directionsService.route({
+            origin: adresse1,
+            destination: adresse2,
+            travelMode: 'DRIVING',
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+            optimizeWaypoints: true,
+            provideRouteAlternatives: false,
+            avoidFerries: false,
+          }, function(response, status) {
+            if (status === 'OK') {
+              directionsRenderer.setDirections(response);
+              var distance = response.routes[0].legs[0].distance.text;
+              var distance2 = response.routes[0].legs[0].distance.value / 1000;
+              var duree = response.routes[0].legs[0].duration.text;
+              console.log([distance, duree, distance2]);
+              resolve([distance, duree, distance2]);
+            } else {
+              reject('Directions request failed due to ' + status);
+            }
+          });
+        });
+      }
+    });
+  });  
+}
   
   function calculerTarif(typeVehicule, nbPers, distance) {
     // Tarif de base en euros par kilomètre pour chaque type de véhicule
@@ -78,31 +86,32 @@ async function calcDistance(option) {
   var distance;
   var tarif;
 
-  // Fonction appelée par le clic sur le bouton "Calculer tarif"
-  async function afficherTarif() {
-    // Récupération des valeurs du formulaire
-    const typeVehicule = document.getElementById('typeVehicule').value;
-    const nbPersonnes = document.getElementById('nbPersonnes').value;
-    
-    // Appel de la fonction calculerTarif() avec les valeurs du formulaire
-    await calcDistance(1).then(res => {
-      distance = res[0];
-      duree = res[1];
-      const distance2 = res[2];
-      console.log(distance, duree, distance2);
-      tarif = calculerTarif(typeVehicule, nbPersonnes, distance2);
+// Fonction appelée par le clic sur le bouton "Calculer tarif"
+async function afficherTarif() {
+  // Récupération des valeurs du formulaire
+  const typeVehicule = document.getElementById('typeVehicule').value;
+  const nbPersonnes = document.getElementById('nbPersonnes').value;
+  
+  // Appel de la fonction calculerTarif() avec les valeurs du formulaire
+  await calcDistance(1).then(result => {
+    console.log(result);
+    distance = result[0];
+    duree = result[1];
+    const distance2 = result[2];
+    console.log(distance, duree, distance2);
+    tarif = calculerTarif(typeVehicule, nbPersonnes, distance2);
 
-      // Affichage du tarif dans la div "tarif"
-      var res = document.getElementById('reservation');
-      if (tarif) {
-        document.getElementById('cout').innerHTML = "<strong> Coût du Trajet : " + tarif.toString() + " Euros </strong>";
-        document.getElementById('resultat').innerHTML = "Estimation: " + duree.toString() +"<br>Distance: " + distance.toString();
-        res.style.display = 'block';
-      } else {
-        res.style.display = 'none';
-      }
-    });
-  }
+    // Affichage du tarif dans la div "tarif"
+    var res = document.getElementById('reservation');
+    if (tarif) {
+      document.getElementById('cout').innerHTML = "<strong> Coût du Trajet : " + tarif.toString() + " Euros </strong>";
+      document.getElementById('resultat').innerHTML = "Estimation: " + duree.toString() +"<br>Distance: " + distance.toString();
+      res.style.display = 'block';
+    } else {
+      res.style.display = 'none';
+    }
+  });
+}
   
 // Récupérer l'élément <select> par son ID
 setTimeout(function() {
@@ -404,4 +413,52 @@ async function createStripeSession() {
       });
       //window.location.href = session.url;
   }, 500);
+}
+
+function isAddressInParis(selectedAddress) {
+  let parisBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(48.699626, 2.135432),
+    new google.maps.LatLng(49.045062, 2.613330)
+  );
+
+  let geocoder = new google.maps.Geocoder();
+
+  // Utilisation d'une promesse pour encapsuler le code asynchrone
+  return new Promise((resolve, reject) => {
+    geocoder.geocode({ address: selectedAddress }, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        let lat = results[0].geometry.location.lat();
+        let lng = results[0].geometry.location.lng();
+
+        if (parisBounds.contains(new google.maps.LatLng(lat, lng))) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } else {
+        console.log('Erreur lors de la géolocalisation : ' + status);
+        resolve(false);
+      }
+    });
+  });
+}
+
+
+function isAddressInFrance(selectedAddress) {
+  return new Promise((resolve, reject) => {
+    let geocoder = new google.maps.Geocoder();
+
+    geocoder.geocode({ address: selectedAddress }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0].address_components.some(component => component.types.includes('country') && component.short_name === 'FR')) {
+          resolve(true);
+        } else {
+          resolve(false);
+        }
+      } else {
+        console.log('Erreur lors de la géolocalisation : ' + status);
+        reject(status);
+      }
+    });
+  });
 }

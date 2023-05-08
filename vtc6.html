@@ -19,8 +19,18 @@
                 </label>
             </div>
             <script>
-                var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById('autocomplete1'));
-                var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'));
+                // Définition des limites géographiques pour restreindre la recherche à la région parisienne
+                let parisBounds = new google.maps.LatLngBounds(
+                    new google.maps.LatLng(48.699626, 2.135432), // coordonnées de la limite sud-ouest
+                    new google.maps.LatLng(49.045062, 2.613330) // coordonnées de la limite nord-est
+                );
+                var autocomplete1 = new google.maps.places.Autocomplete(document.getElementById('autocomplete1'), {
+                    bounds: parisBounds,
+                    strictBounds: true
+                });
+                var autocomplete2 = new google.maps.places.Autocomplete(document.getElementById('autocomplete2'), {
+                    componentRestrictions: { country: "fr" }
+                });
             </script>
             <select id="typeVehicule" name="typeVehicule" required="" style="margin-bottom: 15px;">
                 <option value="">Type du Véhicule</option>
@@ -120,8 +130,13 @@
                                 required="">
                             </div> <!--col-sm-6-->
                             <script>
-                                var autocomplete3 = new google.maps.places.Autocomplete(document.getElementById('autocomplete3'));
-                                var autocomplete4 = new google.maps.places.Autocomplete(document.getElementById('autocomplete4'));
+                                var autocomplete3 = new google.maps.places.Autocomplete(document.getElementById('autocomplete3'), {
+                                    bounds: parisBounds,
+                                    strictBounds: true
+                                });
+                                var autocomplete4 = new google.maps.places.Autocomplete(document.getElementById('autocomplete4'), {
+                                    componentRestrictions: { country: "fr" }
+                                });
                             </script>
                         </div><!--form-group lg-12-->
 

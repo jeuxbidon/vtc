@@ -1,4 +1,4 @@
-const config = 
+export const config = 
 {
   test: "test",
   mailApiKey: "NBI3pNCpzYJj5YBAj",
@@ -16,5 +16,3 @@ const config =
   websiteTestUrl: "https://transport-rocha-by-agence-digitale-g7.webflow.io/",
   websiteProdUrl: "https://www.transportrocha.com/",
 };
-
-export default config;

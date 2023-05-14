@@ -1,5 +1,4 @@
-export const config = 
-{
+const config = {
   test: "test",
   mailApiKey: "NBI3pNCpzYJj5YBAj",
   administratorEmailAddress: "guillaume.auxois@live.fr",

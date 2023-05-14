@@ -1,4 +1,4 @@
-export config = {
+const config = {
   test: "test",
   mailApiKey: "NBI3pNCpzYJj5YBAj",
   administratorEmailAddress: "guillaume.auxois@live.fr",
@@ -15,3 +15,5 @@ export config = {
   websiteTestUrl: "https://transport-rocha-by-agence-digitale-g7.webflow.io/",
   websiteProdUrl: "https://www.transportrocha.com/",
 };
+
+export { config };

@@ -1,4 +1,4 @@
-window.config = {
+export config = {
   test: "test",
   mailApiKey: "NBI3pNCpzYJj5YBAj",
   administratorEmailAddress: "guillaume.auxois@live.fr",

@@ -35,7 +35,7 @@ setTimeout(function() {
     url = url.replace(/[?&].+?(?=&|$)/g, '');
     window.history.replaceState({}, '', url);
   }
-}, 500);
+}, 1000);
 
 async function calcDistance(option) {
   if (option == 1){
@@ -292,7 +292,7 @@ setTimeout(function() {
           document.getElementById('totalPrix').innerHTML = "0" + " €";
         }
       });
-    }, 500);
+    }, 1000);
   });
   document.getElementById('autocomplete4').addEventListener('change', async function() {
     setTimeout(async function() {
@@ -323,7 +323,7 @@ setTimeout(function() {
           document.getElementById('totalPrix').innerHTML = "0" + " €";
         }
       });
-    }, 500);
+    }, 1000);
   });
   document.getElementById('pers').addEventListener('change', async function() {
       // Récupération des valeurs du formulaire
@@ -361,7 +361,7 @@ setTimeout(function() {
     document.getElementById('totalTem').innerHTML = null;
     document.getElementById('totalPrix').innerHTML = "0" + " €";
   });
-}, 500);
+}, 1000);
 
 function sendEmail(email, prenom, nom, date, heure, depart, arrivee, prix, voiture, pers, datetime, tel) {
   sendEmailClient(email, prenom, nom, date, heure, depart, arrivee, prix);

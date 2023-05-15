@@ -1,4 +1,5 @@
 setTimeout(function() {
+  console.log(config);
   const form = document.getElementById("form1");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -7,6 +8,33 @@ setTimeout(function() {
   form2.addEventListener("submit", (event) => {
     event.preventDefault();
   });
+  /*if (window.location.href == "file:///C:/Users/guill/Desktop/vtc/vtc.html") {
+    url = window.location.href;
+    url += '?session_id=cs_test_a1WpZLXWTyspqZUXQv3tPCya20n87gfWglAOm6B4wgjGEE56X1TTvoSsm6&email=guillaume.auxois%40live.fr&prenom=Guillaume&nom=Auxois&date=30%2F05%2F2023&heure=23%3A00&depart=Paris%2C%20France&arrivee=Clermont-Ferrand%2C%20France&prix=449.52&voiture=STANDARD&pers=1&datetime=30%2F05%2F2023%2023%3A00&tel=0681858209';
+    window.location.href = url;
+  }*/
+  const urlParams = new URLSearchParams(window.location.search.split('?')[1]);
+  // Récupération des valeurs des paramètres
+  let sessionId = urlParams.get('session_id');
+  let email = urlParams.get('email');
+  let prenom = urlParams.get('prenom');
+  let nom = urlParams.get('nom');
+  let date = urlParams.get('date');
+  let heure = urlParams.get('heure');
+  let depart = urlParams.get('depart');
+  let arrivee = urlParams.get('arrivee');
+  let prix = urlParams.get('prix');
+  let voiture = urlParams.get('voiture');
+  let pers = urlParams.get('pers');
+  let datetime = urlParams.get('datetime');
+  let tel = urlParams.get('tel');
+  if (sessionId) {
+    getCheckoutSession(sessionId, email, prenom, nom, date, heure, depart, arrivee, prix, voiture, pers, datetime, tel);
+    // Supprimer les paramètres de l'URL
+    let url = window.location.href;
+    url = url.replace(/[?&].+?(?=&|$)/g, '');
+    window.history.replaceState({}, '', url);
+  }
 }, 500);
 
 async function calcDistance(option) {
@@ -20,7 +48,6 @@ async function calcDistance(option) {
 
   return isAddressInParis(adresse1).then((res1) => {
     return isAddressInFrance(adresse2).then((res2) => {
-      console.log(res1, res2);
       if (res1 && res2) {
         var directionsService = new google.maps.DirectionsService();
         var directionsRenderer = new google.maps.DirectionsRenderer();
@@ -42,7 +69,6 @@ async function calcDistance(option) {
               var distance = response.routes[0].legs[0].distance.text;
               var distance2 = response.routes[0].legs[0].distance.value / 1000;
               var duree = response.routes[0].legs[0].duration.text;
-              console.log([distance, duree, distance2]);
               resolve([distance, duree, distance2]);
             } else {
               reject('Directions request failed due to ' + status);
@@ -94,7 +120,6 @@ async function afficherTarif() {
   
   // Appel de la fonction calculerTarif() avec les valeurs du formulaire
   await calcDistance(1).then(result => {
-    console.log(result);
     distance = result[0];
     duree = result[1];
     const distance2 = result[2];
@@ -114,7 +139,7 @@ async function afficherTarif() {
 }
   
 // Récupérer l'élément <select> par son ID
-setTimeout(function() {
+window.addEventListener('DOMContentLoaded', function() {
   var typeVehicule = document.getElementById('typeVehicule');
   var nbPersonnes = document.getElementById('nbPersonnes');
   var res = document.getElementById('reservation');
@@ -160,9 +185,9 @@ setTimeout(function() {
       pers7.style.display = 'none';
     }
   });
-}, 500);
+});
 
-setTimeout(function() {
+window.addEventListener('DOMContentLoaded', function() {
   var typeVehicule2 = document.getElementById('voiture');
   var nbPersonnes2 = document.getElementById('pers');
   var res = document.getElementById('reservation');
@@ -208,7 +233,7 @@ setTimeout(function() {
       pers17.style.display = 'none';
     }
   });
-}, 500);
+});
 
 function reserver(){
   window.location.href = "tel:+33782690072";
@@ -338,81 +363,91 @@ setTimeout(function() {
   });
 }, 500);
 
-function sendEmail() {
-  sendEmailClient();
-  sendEmailAdmin();
+function sendEmail(email, prenom, nom, date, heure, depart, arrivee, prix, voiture, pers, datetime, tel) {
+  sendEmailClient(email, prenom, nom, date, heure, depart, arrivee, prix);
+  sendEmailAdmin(prenom, nom, voiture, pers, datetime, depart, arrivee, prix, tel, email);
 }
 
-function sendEmailClient() {
-  if (document.getElementById('email').value != '' && document.getElementById('prenom').value != '' && document.getElementById('nom').value != '' && document.getElementById('datetimepicker').value != '' &&
-  document.getElementById('autocomplete3').value != '' && document.getElementById('autocomplete4').value != '' && tarif != null && tarif != 0 && tarif != undefined && document.getElementById('tel').value != '' &&
-  document.getElementById('voiture').selectedIndex != 0 && document.getElementById('pers').selectedIndex != 0) {
-    emailjs.init("NBI3pNCpzYJj5YBAj");
-    emailjs.send("service_transport_rocha", "template_gfgqz75", {
-      to_email: document.getElementById('email').value,
-      prenom: document.getElementById('prenom').value,
-      nom: document.getElementById('nom').value,
-      date: document.getElementById('datetimepicker').value.substring(0, 10),
-      heure: document.getElementById('datetimepicker').value.slice(-5),
-      depart: document.getElementById('autocomplete3').value,
-      arrivee: document.getElementById('autocomplete4').value,
-      prix: tarif.toString() + " €"
-   })
-   .then(function(response) {
-      console.log("SUCCESS", response);
-   }, function(error) {
-      console.log("FAILED", error);
-   });
-  } 
+function sendEmailClient(email, prenom, nom, date, heure, depart, arrivee, prix) {
+  emailjs.init(config.mailApiKey);
+  emailjs.send("service_transport_rocha", "template_gfgqz75", {
+    to_email: email,
+    prenom: prenom,
+    nom: nom,
+    date: date,
+    heure: heure,
+    depart: depart,
+    arrivee: arrivee,
+    prix: prix.toString() + " €"
+  })
+  .then(function(response) {
+    console.log("SUCCESS", response);
+  }, function(error) {
+    console.log("FAILED", error);
+  });
 }
 
 const refVoiture = ["STANDARD","BERLINE","VAN"];
 
-function sendEmailAdmin() {
-  if (document.getElementById('email').value != '' && document.getElementById('prenom').value != '' && document.getElementById('nom').value != '' && document.getElementById('datetimepicker').value != '' &&
-  document.getElementById('autocomplete3').value != '' && document.getElementById('autocomplete4').value != '' && tarif != null && tarif != 0 && tarif != undefined && document.getElementById('tel').value != '' &&
-  document.getElementById('voiture').selectedIndex != 0 && document.getElementById('pers').selectedIndex != 0) {
-    emailjs.init("NBI3pNCpzYJj5YBAj");
-    emailjs.send("service_transport_rocha", "template_57z5csj", {
-      to_email: "guillaume.auxois@live.fr",
-      prenom: document.getElementById('prenom').value,
-      nom: document.getElementById('nom').value,
-      voiture: refVoiture[document.getElementById('voiture').selectedIndex - 1],
-      pers: document.getElementById('pers').value,
-      datetime: document.getElementById('datetimepicker').value,
-      depart: document.getElementById('autocomplete3').value,
-      arrivee: document.getElementById('autocomplete4').value,
-      prix: tarif.toString() + " €",
-      tel: document.getElementById('tel').value,
-      email: document.getElementById('email').value
-   })
-   .then(function(response) {
-      console.log("SUCCESS", response);
-   }, function(error) {
-      console.log("FAILED", error);
-   });
-  } 
+function sendEmailAdmin(prenom, nom, voiture, pers, datetime, depart, arrivee, prix, tel, email) {
+  emailjs.init(config.mailApiKey);
+  emailjs.send("service_transport_rocha", "template_57z5csj", {
+    to_email: config.administratorEmailAddress,
+    prenom: prenom,
+    nom: nom,
+    voiture: voiture,
+    pers: pers,
+    datetime: datetime,
+    depart: depart,
+    arrivee: arrivee,
+    prix: prix.toString() + " €",
+    tel: tel,
+    email: email
+  })
+  .then(function(response) {
+    console.log("SUCCESS", response);
+  }, function(error) {
+    console.log("FAILED", error);
+  });
 }
 
-async function createStripeSession() {
-  var stripe = Stripe('pk_test_51N3OEUJLCsfhQSHRtZUqKW2hxkXhRcFQSWSXICdvHy4ULwefRKrvjt2Cj91IgtUbRu6NdB6Z5pqZexPDChdrmfAP003wQngpxd');
-  setTimeout(async function() {
-      // Création d'une session de paiement
-      const session = await stripe.sessions.create({
-        payment_method_types: ['card'],
-        line_items: [{
-          name: 'Nom de l\'article',
-          description: 'Description de l\'article',
-          amount: 2000, // Prix en centimes d'euros
-          currency: 'eur',
-          quantity: 1,
+async function createStripeSession(prix, url) {
+  // Initialiser Stripe.js avec ta clé publique
+  const stripe = Stripe(stripePublicKey);
+
+  const priceData = {
+    unit_amount: prix*100, // prix en cents
+    currency: "eur",
+    product: stripeProductId
+  };
+  
+  fetch('https://api.stripe.com/v1/prices', {
+    method: 'POST',
+    headers: {
+      'Authorization': 'Bearer ' + stripePricesCreationKey,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams(priceData).toString(),
+  }).then(response => response.json())
+    .then(data => {
+      priceId = data.id;
+      // Créer le lien de paiement avec Stripe Checkout
+      stripe.redirectToCheckout({
+        lineItems: [{
+          price: priceId, // ID du prix que tu as créé dans ton tableau de bord Stripe
+          quantity: 1, // Quantité de produits
         }],
         mode: 'payment',
-        success_url: 'https://www.example.com/success',
-        cancel_url: 'https://www.example.com/cancel',
+        successUrl: url,
+        cancelUrl: websiteUrl,
+      })
+      .then((result) => {
+        if (result.error) {
+          // Gérer les erreurs lors de la redirection vers Stripe Checkout
+          console.error(result.error);
+        }
       });
-      //window.location.href = session.url;
-  }, 500);
+    });
 }
 
 function isAddressInParis(selectedAddress) {
@@ -424,7 +459,7 @@ function isAddressInParis(selectedAddress) {
   let geocoder = new google.maps.Geocoder();
 
   // Utilisation d'une promesse pour encapsuler le code asynchrone
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     geocoder.geocode({ address: selectedAddress }, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         let lat = results[0].geometry.location.lat();
@@ -443,7 +478,6 @@ function isAddressInParis(selectedAddress) {
   });
 }
 
-
 function isAddressInFrance(selectedAddress) {
   return new Promise((resolve, reject) => {
     let geocoder = new google.maps.Geocoder();
@@ -461,4 +495,64 @@ function isAddressInFrance(selectedAddress) {
       }
     });
   });
+}
+
+function getCheckoutSession(sessionId, email, prenom, nom, date, heure, depart, arrivee, prix, voiture, pers, datetime, tel) {
+  // Utiliser l'API Stripe pour récupérer les informations de la session de paiement
+  fetch('https://api.stripe.com/v1/checkout/sessions/' + sessionId, {
+    method: 'GET',
+    headers: {
+      'Authorization': 'Bearer ' + stripeSessionsReadingKey,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+  })
+  .then(response => response.json())
+  .catch(error => console.log('Erreur lors de la récupération de la session de paiement : ', error))
+  .then(data => {
+    if (data.payment_status == "paid") {
+      //envoyer emails
+      sendEmail(email, prenom, nom, date, heure, depart, arrivee, prix, voiture, pers, datetime, tel);
+      // Récupérer la boîte modale et le bouton de fermeture
+      var popup = document.querySelector('.popup-container');
+      // Afficher la boîte modale
+      popup.style.display = "block";      
+    }
+  });
+}
+
+function addQueryParam(url, key, value) {
+  // Vérifier si l'URL contient déjà des paramètres
+  const hasQueryString = url.indexOf('?') !== -1;
+
+  // Ajouter le nouveau paramètre
+  const newQueryParam = `${key}=${encodeURIComponent(value)}`;
+  
+  // Concaténer le nouveau paramètre à l'URL existante
+  if (hasQueryString) {
+    return `${url}&${newQueryParam}`;
+  } else {
+    return `${url}?${newQueryParam}`;
+  }
+}
+
+
+function confirmer() {
+  if (document.getElementById('email').value != '' && document.getElementById('prenom').value != '' && document.getElementById('nom').value != '' && document.getElementById('datetimepicker').value != '' &&
+  document.getElementById('autocomplete3').value != '' && document.getElementById('autocomplete4').value != '' && tarif != null && tarif != 0 && tarif != undefined && document.getElementById('tel').value != '' &&
+  document.getElementById('voiture').selectedIndex != 0 && document.getElementById('pers').selectedIndex != 0) {
+    url = websiteUrl + "?session_id={CHECKOUT_SESSION_ID}";
+    url = addQueryParam(url, "email", document.getElementById('email').value);
+    url = addQueryParam(url, "prenom", document.getElementById('prenom').value);
+    url = addQueryParam(url, "nom", document.getElementById('nom').value);
+    url = addQueryParam(url, "date", document.getElementById('datetimepicker').value.substring(0, 10));
+    url = addQueryParam(url, "heure", document.getElementById('datetimepicker').value.slice(-5));
+    url = addQueryParam(url, "depart", document.getElementById('autocomplete3').value);
+    url = addQueryParam(url, "arrivee", document.getElementById('autocomplete4').value);
+    url = addQueryParam(url, "prix", tarif.toString());
+    url = addQueryParam(url, "voiture", refVoiture[document.getElementById('voiture').selectedIndex - 1]);
+    url = addQueryParam(url, "pers", document.getElementById('pers').value);
+    url = addQueryParam(url, "datetime", document.getElementById('datetimepicker').value);
+    url = addQueryParam(url, "tel", document.getElementById('tel').value);
+    createStripeSession(tarif, url);
+  }
 }

@@ -3,7 +3,7 @@ setTimeout(function() {
   let env = "staging";
   if (website == config.websiteTestUrl || window.location.href == "file:///C:/Users/guill/Desktop/vtc/vtc.html") {
     env = "staging";
-  } else if (website == websiteProdUrl) {
+  } else if (website == config.websiteProdUrl) {
     env = "production";
   }
   stripePublicKey = env == "production" ? config.stripeProdPublicKey : config.stripeTestPublicKey;

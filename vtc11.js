@@ -1,5 +1,21 @@
 setTimeout(function() {
-  console.log(config);
+  let website = getDomain();
+  let env = "staging";
+  if (website == config.websiteTestUrl || window.location.href == "file:///C:/Users/guill/Desktop/vtc/vtc.html") {
+    env = "staging";
+  } else if (website == websiteProdUrl) {
+    env = "production";
+  }
+  stripePublicKey = env == "production" ? config.stripeProdPublicKey : config.stripeTestPublicKey;
+  stripeProductId = env == "production" ? config.stripeProdProductId : config.stripeTestProductId;
+  stripePricesCreationKey = env == "production" ? config.stripeProdPricesCreationKey : config.stripeTestPricesCreationKey;
+  stripeSessionsReadingKey = env == "production" ? config.stripeProdSessionsReadingKey : config.stripeTestSessionsReadingKey;
+  websiteUrl = env == "production" ? config.websiteProdUrl : config.websiteTestUrl;
+  console.log(stripePublicKey);
+  console.log(stripeProductId);
+  console.log(stripePricesCreationKey);
+  console.log(stripeSessionsReadingKey);
+  console.log(websiteUrl);
   const form = document.getElementById("form1");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -555,4 +571,20 @@ function confirmer() {
     url = addQueryParam(url, "tel", document.getElementById('tel').value);
     createStripeSession(tarif, url);
   }
+}
+
+function getDomain() {
+  // Récupérer l'URL complète de la page
+  var url = window.location.href;
+
+  // Extraire le domaine de l'URL
+  var domain = '';
+  if (url.indexOf("//") > -1) {
+    domain = url.split('/')[2];
+  } else {
+    domain = url.split('/')[0];
+  }
+
+  // Retourner le domaine
+  return "https://" + domain + "/";
 }

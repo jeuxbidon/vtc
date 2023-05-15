@@ -139,7 +139,7 @@ async function afficherTarif() {
 }
   
 // Récupérer l'élément <select> par son ID
-document.addEventListener('load', function() {
+setTimeout(function() {
   var typeVehicule = document.getElementById('typeVehicule');
   var nbPersonnes = document.getElementById('nbPersonnes');
   var res = document.getElementById('reservation');
@@ -185,9 +185,9 @@ document.addEventListener('load', function() {
       pers7.style.display = 'none';
     }
   });
-});
+}, 1000);
 
-document.addEventListener('load', function() {
+setTimeout(function() {
   var typeVehicule2 = document.getElementById('voiture');
   var nbPersonnes2 = document.getElementById('pers');
   var res = document.getElementById('reservation');
@@ -233,7 +233,7 @@ document.addEventListener('load', function() {
       pers17.style.display = 'none';
     }
   });
-});
+}, 1000);
 
 function reserver(){
   window.location.href = "tel:+33782690072";

@@ -139,7 +139,7 @@ async function afficherTarif() {
 }
   
 // Récupérer l'élément <select> par son ID
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
   var typeVehicule = document.getElementById('typeVehicule');
   var nbPersonnes = document.getElementById('nbPersonnes');
   var res = document.getElementById('reservation');
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-document.addEventListener('DOMContentLoaded', function() {
+window.addEventListener('load', function() {
   var typeVehicule2 = document.getElementById('voiture');
   var nbPersonnes2 = document.getElementById('pers');
   var res = document.getElementById('reservation');

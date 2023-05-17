@@ -11,11 +11,6 @@ setTimeout(function() {
   stripePricesCreationKey = env == "production" ? config.stripeProdPricesCreationKey : config.stripeTestPricesCreationKey;
   stripeSessionsReadingKey = env == "production" ? config.stripeProdSessionsReadingKey : config.stripeTestSessionsReadingKey;
   websiteUrl = env == "production" ? config.websiteProdUrl : config.websiteTestUrl;
-  console.log(stripePublicKey);
-  console.log(stripeProductId);
-  console.log(stripePricesCreationKey);
-  console.log(stripeSessionsReadingKey);
-  console.log(websiteUrl);
   const form = document.getElementById("form1");
   form.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -252,8 +247,8 @@ setTimeout(function() {
 }, 1000);
 
 function reserver(){
-  window.location.href = "tel:+33782690072";
-  /*var adresse1 = document.getElementById('autocomplete1').value;
+  //window.location.href = "tel:+33782690072";
+  var adresse1 = document.getElementById('autocomplete1').value;
   var adresse2 = document.getElementById('autocomplete2').value;
   var typeVehicule = document.getElementById('typeVehicule').selectedIndex;
   var nbPersonnes = document.getElementById('nbPersonnes').selectedIndex;
@@ -267,7 +262,7 @@ function reserver(){
   document.getElementById('totalTem').innerHTML = duree;
   document.getElementById('totalPrix').innerHTML = tarif + " €";
   document.getElementById('p1').style.display = 'none';
-  document.getElementById('p2').style.display = 'block'*/
+  document.getElementById('p2').style.display = 'block'
 }
 
 setTimeout(function() {

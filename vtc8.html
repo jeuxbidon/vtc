@@ -151,7 +151,6 @@
                                         dateMin.setDate(dateMin.getDate() + 2);
                                         dateMin.setHours(0, 0, 0, 0);
                                         // Configuration du datetimepicker
-                                        $.datetimepicker.setLocale('fr');
                                         $("#datetimepicker").datetimepicker({
                                             format: 'd/m/Y H:i',  // Format de l'heure
                                             showMinute: true,  // Afficher les minutes
@@ -185,6 +184,7 @@
                                             }
                                             }
                                         });
+                                        $.datetimepicker.setLocale('fr');
                                         });
                                     </script>
                             </div> <!--col-sm-6-->

@@ -144,14 +144,15 @@
                             <div class="form-group col-md-6 col-sm-6">
                                     <input type="text" placeholder="Date et heure de départ" id="datetimepicker" required="">
                                     <script>
-                                        $("#datetimepicker").ready(function() {
+                                        var yourPlugin = $.noConflict(true);
+                                        yourPlugin("#datetimepicker").ready(function() {
                                         // Définir la date minimum à j+2
                                         var dateMin = new Date();
                                         dateMin.setDate(dateMin.getDate() + 2);
                                         dateMin.setHours(0, 0, 0, 0);
                                         // Configuration du datetimepicker
-                                        $.datetimepicker.setLocale('fr');
-                                        $("#datetimepicker").datetimepicker({
+                                        yourPlugin.datetimepicker.setLocale('fr');
+                                        yourPlugin("#datetimepicker").datetimepicker({
                                             format: 'd/m/Y H:i',  // Format de l'heure
                                             showMinute: true,  // Afficher les minutes
                                             step: 15,  // Pas de 15 minutes

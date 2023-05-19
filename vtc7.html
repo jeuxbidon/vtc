@@ -276,8 +276,7 @@
                         </div>
                         <input type="hidden" name="recaptcha-response" id="recaptcha-response"
                             value="03AKH6MRGvxlr5SxC3y6y7RFBtEtMp_g5D70BsIx2u0ta17PxO_-wNlWPEdkiQwqYxwxfYWFv7A1KNvBC7xeKqQ2GfkdDM4oFMvf2V6Cm1XQLJXIvuYEDG2KTCUnA2TM0O2cN9mzfUDXqP2BwODYSXsjqH3p4gFE_4Du9KbJ3tndeJHG2vqtO-Guv5hVNB78Xi0cbQ86dB-qAlpg-9h5hUZB4lGzeiWXS0c48B2qZX32iJP3Y6YmXZai24BLApGCEg8nJp7olLp6Ovhc4QEVWE_U2sp-JCKxBHsrVK80Kq2SWiBB6nX1r3-pb786mh7R73S2GWns7P-Yv8rQUR4k1DLP9SpErgkhulHscrLGQv-ufa9V6cbEZYQXVazer9NSiIQrxcGtGx-k3TeVc5N3rydk1erJnpGE4Mi2uxYvAJI9z27qUJLIaYSVIBsbKkhJTDfT15vomel9fVAd7b3iBXY0XDh7Co2Ojvz3jg6Eza78PPfU3AkPt5rbtJapRl2GDvFg9hOGM5hsG_aWQb0DYKtDIz_1hWP464Vg">
-                        <button class="btn btn-success btn-lg" type="submit" name="reserver"
-                            id="confirm" onclick="sendEmail()">Confirmer</button>
+                        <button class="btn btn-success btn-lg" id="confirm" onclick="confirmer()">Confirmer</button>
 
                         <div id="email" class="clearfix">
 
@@ -285,7 +284,16 @@
                     </fieldset>
                 </div><!--total-->
             </form>
-            <button onclick="createStripeSession()">stripe</button>
         </div> <!--md-12-->
     </div><!--row-->
 </div>
+<div class="popup-container">
+    <h2 class="popup-title">PAIEMENT CONFIRMÉ</h2>
+    <p class="popup-message">Votre paiement est validé. Vous allez recevoir un email de confirmation de réservation. Merci de votre confiance.</p>
+    <button class="popup-button" onclick="closePopup()">FERMER</button>
+</div>
+<script>
+    function closePopup() {
+        document.querySelector('.popup-container').remove();
+    }
+</script> 

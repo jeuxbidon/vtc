@@ -143,50 +143,6 @@
                         <div class="form-group col-lg-12 mb-2">
                             <div class="form-group col-md-6 col-sm-6">
                                     <input type="text" placeholder="Date et heure de départ" id="datetimepicker" required="">
-                                    <script>
-                                        var yourPlugin = $.noConflict(true);
-                                        yourPlugin("#datetimepicker").ready(function() {
-                                        // Définir la date minimum à j+2
-                                        var dateMin = new Date();
-                                        dateMin.setDate(dateMin.getDate() + 2);
-                                        dateMin.setHours(0, 0, 0, 0);
-                                        // Configuration du datetimepicker
-                                        yourPlugin.datetimepicker.setLocale('fr');
-                                        yourPlugin("#datetimepicker").datetimepicker({
-                                            format: 'd/m/Y H:i',  // Format de l'heure
-                                            showMinute: true,  // Afficher les minutes
-                                            step: 15,  // Pas de 15 minutes
-                                            showSecond: false,  // Ne pas afficher les secondes
-                                            minDate: dateMin,  // Date minimale
-                                            timepicker: false,
-                                            dayOfWeekStart: 1,
-                                            onShow: function(currentDateTime, $input) {
-                                            if (document.getElementById("datetimepicker").value == "") {
-                                                this.setOptions({
-                                                    timepicker: false
-                                                });
-                                            }
-                                            },
-                                            onSelectDate: function(currentDateTime, $input) {
-                                            if (currentDateTime < dateMin) {
-                                                this.setOptions({
-                                                    timepicker: false
-                                                });
-                                            } else {
-                                                this.setOptions({
-                                                    timepicker: true
-                                                });
-                                            }
-                                            document.getElementById("datetimepicker").value = "";
-                                            },
-                                            onClose: function(currentDateTime, $input) {
-                                            if (currentDateTime < dateMin) {
-                                                document.getElementById("datetimepicker").value = ""; // efface le champ
-                                            }
-                                            }
-                                        });
-                                        });
-                                    </script>
                             </div> <!--col-sm-6-->
                         </div><!--form-group-->
                         <!--hidden-->

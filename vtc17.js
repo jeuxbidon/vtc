@@ -263,45 +263,6 @@ function reserver(){
   document.getElementById('totalPrix').innerHTML = tarif + " €";
   document.getElementById('p1').style.display = 'none';
   document.getElementById('p2').style.display = 'block'
-  // Définir la date minimum à j+2
-  var dateMin = new Date();
-  dateMin.setDate(dateMin.getDate() + 2);
-  dateMin.setHours(0, 0, 0, 0);
-  // Configuration du datetimepicker
-  $.datetimepicker.setLocale('fr');
-  $("#datetimepicker").datetimepicker({
-    format: 'd/m/Y H:i',  // Format de l'heure
-    showMinute: true,  // Afficher les minutes
-    step: 15,  // Pas de 15 minutes
-    showSecond: false,  // Ne pas afficher les secondes
-    minDate: dateMin,  // Date minimale
-    timepicker: false,
-    dayOfWeekStart: 1,
-    onShow: function(currentDateTime, $input) {
-      if (document.getElementById("datetimepicker").value == "") {
-        this.setOptions({
-          timepicker: false
-        });
-      }
-    },
-    onSelectDate: function(currentDateTime, $input) {
-      if (currentDateTime < dateMin) {
-        this.setOptions({
-          timepicker: false
-        });
-      } else {
-        this.setOptions({
-          timepicker: true
-        });
-      }
-      document.getElementById("datetimepicker").value = "";
-    },
-    onClose: function(currentDateTime, $input) {
-      if (currentDateTime < dateMin) {
-        document.getElementById("datetimepicker").value = ""; // efface le champ
-      }
-    }
-  });
 }
 
 setTimeout(function() {

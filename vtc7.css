@@ -284,15 +284,6 @@ code, kbd, pre, samp {
   padding-left: 15px;
 }
 
-.form-inline {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-flow: row wrap;
-  flex-flow: row wrap;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
 .col-md-7 {
   position: relative;
   width: 100%;
@@ -302,18 +293,6 @@ code, kbd, pre, samp {
 
 .mb-2, .my-2 {
   margin-bottom: 0.5rem!important;
-}
-
-@media (min-width: 768px) {
-  .col-md-7 {
-    -ms-flex: 0 0 58.333333%;
-    flex: 0 0 58.333333%;
-    max-width: 58.333333%;
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
-  }
 }
 
 .blur-plus {
@@ -449,20 +428,6 @@ em {
   width: 100%;
   padding-right: 15px !important;
   padding-left: 15px !important;
-}
-
-@media (min-width: 576px) {
-.form-inline .form-group {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    -ms-flex-flow: row wrap;
-    flex-flow: row wrap;
-    -ms-flex-align: center;
-    align-items: center;
-    margin-bottom: 0;
-}
 }
 
 button, input {

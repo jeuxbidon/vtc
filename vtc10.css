@@ -483,7 +483,7 @@ input[type="text" i] {
 .popup-container {
   display: none;
   position: fixed;
-  top: 50%;
+  top: -87%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #1f221f;
@@ -491,6 +491,8 @@ input[type="text" i] {
   padding-bottom: 60px;
   border-radius: 10px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 650px;
 }
 
 .popup-title {

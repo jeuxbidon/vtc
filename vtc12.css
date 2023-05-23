@@ -182,7 +182,6 @@ cursor: pointer;
 .col-lg-5 {
   -ms-flex: 0 0 41.666667%;
   flex: 0 0 41.666667%;
-  max-width: 41.666667%;
 }
 
 .reservation {

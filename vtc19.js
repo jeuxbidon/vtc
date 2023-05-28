@@ -1,4 +1,4 @@
-setTimeout(function() {
+document.addEventListener('DOMContentLoaded', function() {
   let website = getDomain();
   let env = "staging";
   if (website == config.websiteTestUrl || window.location.href == "file:///C:/Users/guill/Desktop/vtc/vtc.html") {
@@ -46,7 +46,7 @@ setTimeout(function() {
     url = url.replace(/[?&].+?(?=&|$)/g, '');
     window.history.replaceState({}, '', url);
   }
-}, 1000);
+});
 
 async function calcDistance(option) {
   if (option == 1){

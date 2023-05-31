@@ -6,6 +6,7 @@ setTimeout(function() {
   } else if (website == config.websiteProdUrl) {
     env = "production";
   }
+  administratorEmailAddress = env == "production" ? config.administratorProdEmailAddress : config.administratorTestEmailAddress;
   stripePublicKey = env == "production" ? config.stripeProdPublicKey : config.stripeTestPublicKey;
   stripeProductId = env == "production" ? config.stripeProdProductId : config.stripeTestProductId;
   stripePricesCreationKey = env == "production" ? config.stripeProdPricesCreationKey : config.stripeTestPricesCreationKey;
@@ -403,7 +404,7 @@ const refVoiture = ["STANDARD","BERLINE","VAN"];
 function sendEmailAdmin(prenom, nom, voiture, pers, datetime, depart, arrivee, prix, tel, email) {
   emailjs.init(config.mailApiKey);
   emailjs.send("service_transport_rocha", "template_57z5csj", {
-    to_email: config.administratorEmailAddress,
+    to_email: administratorEmailAddress,
     prenom: prenom,
     nom: nom,
     voiture: voiture,

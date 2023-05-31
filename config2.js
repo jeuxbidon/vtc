@@ -1,7 +1,8 @@
 const config = {
     mailApiKey: "NBI3pNCpzYJj5YBAj",
-    administratorEmailAddress: "guillaume.auxois@live.fr",
     
+    administratorTestEmailAddress: "guillaume.auxois@live.fr",
+    administratorProdEmailAddress: "contact@transportrocha.com", 
     stripeTestPublicKey: "pk_test_51N3OEUJLCsfhQSHRtZUqKW2hxkXhRcFQSWSXICdvHy4ULwefRKrvjt2Cj91IgtUbRu6NdB6Z5pqZexPDChdrmfAP003wQngpxd",
     stripeProdPublicKey: "pk_live_51N3OEUJLCsfhQSHRgkQE2zvvXkJEnuVuMAlRC05wiZ2Pqh0AvN0BxihfFfCCres4E3G6vOo75dXHEITru9kdXI2G00whgGd5tc",
     stripeTestProductId: "prod_NsTKV9UGN2WwH4",

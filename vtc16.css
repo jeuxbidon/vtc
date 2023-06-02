@@ -440,8 +440,8 @@ input[type="text" i] {
   padding: 1px 2px;
 }
 
-.text-danger {
-  color: #dc3545!important;
+.totalprix {
+  color: #FFFFFF;
 }
 
 .contact-form select {

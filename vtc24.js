@@ -142,12 +142,13 @@ async function afficherTarif() {
     var res = document.getElementById('reservation');
     if (tarif) {
       if (tarif < 105) {
-        document.getElementById('cout').innerHTML = "<strong> Le coût du trajet est inférieur au montant minimal de commande </strong>";
-        document.getElementById('cout').style.color = '#dc3545!important';
+        document.getElementById('cout').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
+        document.getElementById('cout').style.color = '#dc3545';
+        document.getElementById('cout').style.fontWeight = '900';
         document.getElementById('reserver').disabled = true;
       } else {
         document.getElementById('cout').innerHTML = "<strong> Coût du Trajet : " + tarif.toString() + " Euros </strong>";
-        document.getElementById('cout').style.color = '#FFFFFF!important';
+        document.getElementById('cout').style.color = '#FFFFFF';
         document.getElementById('reserver').disabled = false;
       }
       document.getElementById('resultat').innerHTML = "Estimation: " + duree.toString() +"<br>Distance: " + distance.toString();

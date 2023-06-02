@@ -141,7 +141,15 @@ async function afficherTarif() {
     // Affichage du tarif dans la div "tarif"
     var res = document.getElementById('reservation');
     if (tarif) {
-      document.getElementById('cout').innerHTML = "<strong> Coût du Trajet : " + tarif.toString() + " Euros </strong>";
+      if (tarif < 105) {
+        document.getElementById('cout').innerHTML = "<strong> Le coût du trajet est inférieur au montant minimal de commande </strong>";
+        document.getElementById('cout').style.color = '#dc3545';
+        document.getElementById('reserver').disabled = true;
+      } else {
+        document.getElementById('cout').innerHTML = "<strong> Coût du Trajet : " + tarif.toString() + " Euros </strong>";
+        document.getElementById('cout').style.color = '#FFFFFF';
+        document.getElementById('reserver').disabled = false;
+      }
       document.getElementById('resultat').innerHTML = "Estimation: " + duree.toString() +"<br>Distance: " + distance.toString();
       res.style.display = 'block';
     } else {
@@ -291,17 +299,27 @@ setTimeout(function() {
         console.log(distance, duree, distance2);
         tarif = calculerTarif(voiture, pers, distance2);  
         if (tarif) {
+          if (tarif < 105) {
+            document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
+            document.getElementById('totalPrix').style.color = '#dc3545';
+            document.getElementById('confirm').disabled = true;
+          } else {
+            document.getElementById('totalPrix').innerHTML = tarif + " €";
+            document.getElementById('totalPrix').style.color = '#FFFFFF';
+            document.getElementById('confirm').disabled = false;
+          }
           document.getElementById('totalDep').innerHTML = adresse3;
           document.getElementById('totalArr').innerHTML = adresse4;
           document.getElementById('totalDist').innerHTML = distance;
           document.getElementById('totalTem').innerHTML = duree;
-          document.getElementById('totalPrix').innerHTML = tarif + " €";
         } else {
           document.getElementById('totalDep').innerHTML = null;
           document.getElementById('totalArr').innerHTML = null;
           document.getElementById('totalDist').innerHTML = null;
           document.getElementById('totalTem').innerHTML = null;
           document.getElementById('totalPrix').innerHTML = "0" + " €";
+          document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('confirm').disabled = false;
         }
       });
     }, 1000);
@@ -322,17 +340,27 @@ setTimeout(function() {
         console.log(distance, duree, distance2);
         tarif = calculerTarif(voiture, pers, distance2);  
         if (tarif) {
+          if (tarif < 105) {
+            document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
+            document.getElementById('totalPrix').style.color = '#dc3545';
+            document.getElementById('confirm').disabled = true;
+          } else {
+            document.getElementById('totalPrix').innerHTML = tarif + " €";
+            document.getElementById('totalPrix').style.color = '#FFFFFF';
+            document.getElementById('confirm').disabled = false;
+          }
           document.getElementById('totalDep').innerHTML = adresse3;
           document.getElementById('totalArr').innerHTML = adresse4;
           document.getElementById('totalDist').innerHTML = distance;
           document.getElementById('totalTem').innerHTML = duree;
-          document.getElementById('totalPrix').innerHTML = tarif + " €";
         } else {
           document.getElementById('totalDep').innerHTML = null;
           document.getElementById('totalArr').innerHTML = null;
           document.getElementById('totalDist').innerHTML = null;
           document.getElementById('totalTem').innerHTML = null;
           document.getElementById('totalPrix').innerHTML = "0" + " €";
+          document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('confirm').disabled = false;
         }
       });
     }, 1000);
@@ -352,17 +380,27 @@ setTimeout(function() {
       console.log(distance, duree, distance2);
       tarif = calculerTarif(voiture, pers, distance2);  
       if (tarif) {
+        if (tarif < 105) {
+          document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
+          document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('confirm').disabled = true;
+        } else {
+          document.getElementById('totalPrix').innerHTML = tarif + " €";
+          document.getElementById('totalPrix').style.color = '#FFFFFF';
+          document.getElementById('confirm').disabled = false;
+        }
         document.getElementById('totalDep').innerHTML = adresse3;
         document.getElementById('totalArr').innerHTML = adresse4;
         document.getElementById('totalDist').innerHTML = distance;
         document.getElementById('totalTem').innerHTML = duree;
-        document.getElementById('totalPrix').innerHTML = tarif + " €";
       } else {
         document.getElementById('totalDep').innerHTML = null;
         document.getElementById('totalArr').innerHTML = null;
         document.getElementById('totalDist').innerHTML = null;
         document.getElementById('totalTem').innerHTML = null;
         document.getElementById('totalPrix').innerHTML = "0" + " €";
+        document.getElementById('totalPrix').style.color = '#dc3545';
+        document.getElementById('confirm').disabled = false;
       }
     });
   });
@@ -372,6 +410,8 @@ setTimeout(function() {
     document.getElementById('totalDist').innerHTML = null;
     document.getElementById('totalTem').innerHTML = null;
     document.getElementById('totalPrix').innerHTML = "0" + " €";
+    document.getElementById('totalPrix').style.color = '#dc3545';
+    document.getElementById('confirm').disabled = false;
   });
 }, 1000);
 

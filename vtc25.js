@@ -303,10 +303,12 @@ setTimeout(function() {
           if (tarif < 105) {
             document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
             document.getElementById('totalPrix').style.color = '#dc3545';
+            document.getElementById('totalPrix').style.fontSize = '15px';
             document.getElementById('confirm').disabled = true;
           } else {
             document.getElementById('totalPrix').innerHTML = tarif + " €";
             document.getElementById('totalPrix').style.color = '#FFFFFF';
+            document.getElementById('totalPrix').style.fontSize = '18px';
             document.getElementById('confirm').disabled = false;
           }
           document.getElementById('totalDep').innerHTML = adresse3;
@@ -321,6 +323,7 @@ setTimeout(function() {
           document.getElementById('totalPrix').innerHTML = "0" + " €";
           document.getElementById('totalPrix').style.color = '#dc3545';
           document.getElementById('confirm').disabled = false;
+          document.getElementById('totalPrix').style.fontSize = '18px';
         }
       });
     }, 1000);
@@ -344,10 +347,12 @@ setTimeout(function() {
           if (tarif < 105) {
             document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
             document.getElementById('totalPrix').style.color = '#dc3545';
+            document.getElementById('totalPrix').style.fontSize = '15px';
             document.getElementById('confirm').disabled = true;
           } else {
             document.getElementById('totalPrix').innerHTML = tarif + " €";
             document.getElementById('totalPrix').style.color = '#FFFFFF';
+            document.getElementById('totalPrix').style.fontSize = '18px';
             document.getElementById('confirm').disabled = false;
           }
           document.getElementById('totalDep').innerHTML = adresse3;
@@ -362,6 +367,7 @@ setTimeout(function() {
           document.getElementById('totalPrix').innerHTML = "0" + " €";
           document.getElementById('totalPrix').style.color = '#dc3545';
           document.getElementById('confirm').disabled = false;
+          document.getElementById('totalPrix').style.fontSize = '18px';
         }
       });
     }, 1000);
@@ -384,10 +390,12 @@ setTimeout(function() {
         if (tarif < 105) {
           document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
           document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('totalPrix').style.fontSize = '15px';
           document.getElementById('confirm').disabled = true;
         } else {
           document.getElementById('totalPrix').innerHTML = tarif + " €";
           document.getElementById('totalPrix').style.color = '#FFFFFF';
+          document.getElementById('totalPrix').style.fontSize = '18px';
           document.getElementById('confirm').disabled = false;
         }
         document.getElementById('totalDep').innerHTML = adresse3;
@@ -402,6 +410,7 @@ setTimeout(function() {
         document.getElementById('totalPrix').innerHTML = "0" + " €";
         document.getElementById('totalPrix').style.color = '#dc3545';
         document.getElementById('confirm').disabled = false;
+        document.getElementById('totalPrix').style.fontSize = '18px';
       }
     });
   });
@@ -413,6 +422,7 @@ setTimeout(function() {
     document.getElementById('totalPrix').innerHTML = "0" + " €";
     document.getElementById('totalPrix').style.color = '#dc3545';
     document.getElementById('confirm').disabled = false;
+    document.getElementById('totalPrix').style.fontSize = '18px';
   });
 }, 1000);
 

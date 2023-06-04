@@ -265,6 +265,32 @@ function reserver(){
   document.getElementById('autocomplete3').value = adresse1;
   document.getElementById('autocomplete4').value = adresse2;
   document.getElementById('voiture').selectedIndex = typeVehicule;
+  var typeV2 = document.getElementById('voiture').value;
+  if (typeV2 === '1' || typeV2 === '2') {
+    pers11.style.display = 'block';
+    pers12.style.display = 'block';
+    pers13.style.display = 'block';
+    pers14.style.display = 'none';
+    pers15.style.display = 'none';
+    pers16.style.display = 'none';
+    pers17.style.display = 'none';
+  } else if (typeV2 === '3') {
+    pers11.style.display = 'block';
+    pers12.style.display = 'block';
+    pers13.style.display = 'block';
+    pers14.style.display = 'block';
+    pers15.style.display = 'block';
+    pers16.style.display = 'block';
+    pers17.style.display = 'block';
+  } else {
+    pers11.style.display = 'none';
+    pers12.style.display = 'none';
+    pers13.style.display = 'none';
+    pers14.style.display = 'none';
+    pers15.style.display = 'none';
+    pers16.style.display = 'none';
+    pers17.style.display = 'none';
+  }
   document.getElementById('pers').selectedIndex = nbPersonnes;
   document.getElementById('totalDep').innerHTML = adresse1;
   document.getElementById('totalArr').innerHTML = adresse2;
@@ -285,7 +311,7 @@ window.addEventListener('load', function() {
     res.style.display = 'none';   
   });
   document.getElementById('autocomplete3').addEventListener('change', async function() {
-    window.addEventListener('load', async function() {
+    setTimeout(async function() {
       // Récupération des valeurs du formulaire
       const voiture = document.getElementById('voiture').selectedIndex;
       const pers = document.getElementById('pers').selectedIndex;
@@ -326,10 +352,10 @@ window.addEventListener('load', function() {
           document.getElementById('totalPrix').style.fontSize = '18px';
         }
       });
-    });
+    }, 1000);
   });
   document.getElementById('autocomplete4').addEventListener('change', async function() {
-    window.addEventListener('load', async function() {
+    setTimeout(async function() {
       // Récupération des valeurs du formulaire
       const voiture = document.getElementById('voiture').selectedIndex;
       const pers = document.getElementById('pers').selectedIndex;
@@ -370,7 +396,7 @@ window.addEventListener('load', function() {
           document.getElementById('totalPrix').style.fontSize = '18px';
         }
       });
-    });
+    }, 1000);
   });
   document.getElementById('pers').addEventListener('change', async function() {
       // Récupération des valeurs du formulaire

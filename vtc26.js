@@ -160,7 +160,7 @@ async function afficherTarif() {
 }
   
 // Récupérer l'élément <select> par son ID
-setTimeout(function() {
+window.addEventListener('load', function() {
   var typeVehicule = document.getElementById('typeVehicule');
   var nbPersonnes = document.getElementById('nbPersonnes');
   var res = document.getElementById('reservation');
@@ -206,7 +206,7 @@ setTimeout(function() {
       pers7.style.display = 'none';
     }
   });
-}, 1000);
+});
 
 setTimeout(function() {
   var typeVehicule2 = document.getElementById('voiture');

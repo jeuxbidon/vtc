@@ -65,7 +65,7 @@ height: 45px;
 font-size: 12px;
 font-weight: 500;
 margin-bottom: 0;
-padding: 22px 23px 20px;
+padding: 22px 12px 20px;
 border: 1px solid #3b4151;
 border-radius: 6px;
 background-color: #1f221f;
@@ -494,7 +494,7 @@ input[type="text" i] {
   font-size: 12px;
   font-weight: 500;
   margin-bottom: 10px;
-  padding: 22px 23px 20px;
+  padding: 22px 12px 20px;
   border: 1px solid #3b4151;
   border-radius: 6px;
   background-color: #1f221f;
@@ -606,7 +606,7 @@ input[type="text" i] {
     display: block;
     font-size: 14px;
     text-transform: uppercase;
-    border: 1px solid #3d9e42;
+    border: 1px transparent;
     border-radius: 2px;
     color: #FFF;
     font-weight: 500;
@@ -614,17 +614,22 @@ input[type="text" i] {
     width: 94%;
     height: 46px;
     margin-top: 10px;
-    background-color: #3d9e42;
+    background-color: transparent;
+    background-image: linear-gradient(90deg,#173d16,#1ba617);
     font-family: Rota,sans-serif;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 10px;
+    line-height: 1.111em;
+    text-decoration: none;
+    transition: border-color .3s,opacity .3s;
   }
 
   #p2 .text-left {
     margin-bottom: 10px !important;
     margin-left: 4%;
     text-align: left!important;
+    margin-right: 4%;
   }
 
   #p2 .form-group.col-md-6.col-sm-6 {
@@ -632,5 +637,13 @@ input[type="text" i] {
     width: 100%;
     padding-right: 5px !important;
     padding-left: 5px !important;
+  }
+
+  .totalprix {
+    margin-left: 4%;
+  }
+
+  .recap {
+    margin-left: 4%;
   }
 }

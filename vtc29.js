@@ -330,11 +330,18 @@ window.addEventListener('load', function() {
             document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
             document.getElementById('totalPrix').style.color = '#dc3545';
             document.getElementById('totalPrix').style.fontSize = '15px';
+            document.getElementById('totalPrix').style.paddingLeft = '0';
+            document.getElementById('totalPrix').classList.add('totalprix');
             document.getElementById('confirm').disabled = true;
+            document.getElementById('labelPrix').style.display = 'none';
           } else {
             document.getElementById('totalPrix').innerHTML = tarif + " €";
             document.getElementById('totalPrix').style.color = '#FFFFFF';
+            document.getElementById('labelPrix').style.display = 'block';
+            document.getElementById('labelPrix').style.color = '#FFFFFF';
             document.getElementById('totalPrix').style.fontSize = '18px';
+            document.getElementById('totalPrix').style.paddingLeft = '5px';
+            document.getElementById('totalPrix').classList.remove('totalprix');
             document.getElementById('confirm').disabled = false;
           }
           document.getElementById('totalDep').innerHTML = adresse3;
@@ -348,8 +355,12 @@ window.addEventListener('load', function() {
           document.getElementById('totalTem').innerHTML = null;
           document.getElementById('totalPrix').innerHTML = "0" + " €";
           document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('labelPrix').style.display = 'block';
+          document.getElementById('labelPrix').style.color = '#dc3545';
           document.getElementById('confirm').disabled = false;
           document.getElementById('totalPrix').style.fontSize = '18px';
+          document.getElementById('totalPrix').style.paddingLeft = '5px';
+          document.getElementById('totalPrix').classList.remove('totalprix');
         }
       });
     }, 1000);
@@ -374,11 +385,18 @@ window.addEventListener('load', function() {
             document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
             document.getElementById('totalPrix').style.color = '#dc3545';
             document.getElementById('totalPrix').style.fontSize = '15px';
+            document.getElementById('totalPrix').style.paddingLeft = '0';
+            document.getElementById('totalPrix').classList.add('totalprix');
+            document.getElementById('labelPrix').style.display = 'none';
             document.getElementById('confirm').disabled = true;
           } else {
             document.getElementById('totalPrix').innerHTML = tarif + " €";
             document.getElementById('totalPrix').style.color = '#FFFFFF';
             document.getElementById('totalPrix').style.fontSize = '18px';
+            document.getElementById('totalPrix').style.paddingLeft = '5px';
+            document.getElementById('totalPrix').classList.remove('totalprix');
+            document.getElementById('labelPrix').style.display = 'block';
+            document.getElementById('labelPrix').style.color = '#FFFFFF';
             document.getElementById('confirm').disabled = false;
           }
           document.getElementById('totalDep').innerHTML = adresse3;
@@ -392,8 +410,12 @@ window.addEventListener('load', function() {
           document.getElementById('totalTem').innerHTML = null;
           document.getElementById('totalPrix').innerHTML = "0" + " €";
           document.getElementById('totalPrix').style.color = '#dc3545';
+          document.getElementById('labelPrix').style.display = 'block';
+          document.getElementById('labelPrix').style.color = '#dc3545';
           document.getElementById('confirm').disabled = false;
           document.getElementById('totalPrix').style.fontSize = '18px';
+          document.getElementById('totalPrix').style.paddingLeft = '5px';
+          document.getElementById('totalPrix').classList.remove('totalprix');
         }
       });
     }, 1000);
@@ -417,11 +439,18 @@ window.addEventListener('load', function() {
           document.getElementById('totalPrix').innerHTML = "Le coût du trajet est inférieur au montant minimal de commande";
           document.getElementById('totalPrix').style.color = '#dc3545';
           document.getElementById('totalPrix').style.fontSize = '15px';
+          document.getElementById('totalPrix').style.paddingLeft = '0';
+          document.getElementById('totalPrix').classList.add('totalprix');
+          document.getElementById('labelPrix').style.display = 'none';
           document.getElementById('confirm').disabled = true;
         } else {
           document.getElementById('totalPrix').innerHTML = tarif + " €";
           document.getElementById('totalPrix').style.color = '#FFFFFF';
           document.getElementById('totalPrix').style.fontSize = '18px';
+          document.getElementById('totalPrix').style.paddingLeft = '5px';
+          document.getElementById('totalPrix').classList.remove('totalprix');
+          document.getElementById('labelPrix').style.display = 'block';
+          document.getElementById('labelPrix').style.color = '#FFFFFF';
           document.getElementById('confirm').disabled = false;
         }
         document.getElementById('totalDep').innerHTML = adresse3;
@@ -435,8 +464,12 @@ window.addEventListener('load', function() {
         document.getElementById('totalTem').innerHTML = null;
         document.getElementById('totalPrix').innerHTML = "0" + " €";
         document.getElementById('totalPrix').style.color = '#dc3545';
+        document.getElementById('labelPrix').style.display = 'block';
+        document.getElementById('labelPrix').style.color = '#dc3545';
         document.getElementById('confirm').disabled = false;
         document.getElementById('totalPrix').style.fontSize = '18px';
+        document.getElementById('totalPrix').style.paddingLeft = '5px';
+        document.getElementById('totalPrix').classList.remove('totalprix');
       }
     });
   });
@@ -447,8 +480,12 @@ window.addEventListener('load', function() {
     document.getElementById('totalTem').innerHTML = null;
     document.getElementById('totalPrix').innerHTML = "0" + " €";
     document.getElementById('totalPrix').style.color = '#dc3545';
+    document.getElementById('labelPrix').style.display = 'block';
+    document.getElementById('labelPrix').style.color = '#dc3545';
     document.getElementById('confirm').disabled = false;
     document.getElementById('totalPrix').style.fontSize = '18px';
+    document.getElementById('totalPrix').style.paddingLeft = '5px';
+    document.getElementById('totalPrix').classList.remove('totalprix');
   });
 });
 

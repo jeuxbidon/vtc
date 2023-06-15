@@ -506,7 +506,7 @@ input[type="text" i] {
 .popup-container {
   display: none;
   position: fixed;
-  top: -87%;
+  top: -92%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #1f221f;
@@ -551,7 +551,6 @@ input[type="text" i] {
   transition: border-color .3s,opacity .3s;
   height: 46px;
   font-family: Rota,sans-serif;
-  margin-bottom: 6px;
   margin-left: 50%;
   transform: translateX(-50%);
 }
